@@ -171,33 +171,51 @@ pre code {
 <p>title: “Regresiones” author: “Mayo &amp; García” date: “9/7/2022” output: html_document</p>
 <hr />
 <div id="regresion-lineal" class="section level4">
-<h4><em>Regresion Lineal</em></h4>
-<div id="si-bien-mediante-las-correlaciones-podemos-medir-la-relación-entre-dos-variables-las-regresiones-nos-permitirán-predecir-una-variable-a-partir-de-otra." class="section level5">
-<h5>Si bien mediante las correlaciones podemos medir la relación entre dos variables, las regresiones nos permitirán predecir una variable a partir de otra.</h5>
+<h4>Regresion Lineal</h4>
+<div id="section" class="section level5">
+<h5></h5>
+<p>Si bien mediante las correlaciones podemos medir la relación entre dos variables, las regresiones nos permitirán predecir una variable a partir de otra.</p>
 <p><em>Ejemplo. Podemos intentar predecir los niveles de estrés a partir del tiempo que falta para brindar una charla</em></p>
 </div>
-<div id="se-espera-que-la-relación-sea-inversa-cuanto-menos-sea-el-tiempo-hasta-la-charla-mayor-será-la-ansiedad.-sin-embargo-está-pregunta-se-puede-volver-más-compleja." class="section level5">
-<h5>Se espera que la relación sea inversa (cuanto menos sea el tiempo hasta la charla, mayor será la ansiedad). Sin embargo está pregunta se puede volver más compleja.</h5>
+<div id="section-1" class="section level5">
+<h5></h5>
+<p>Se espera que la relación sea inversa (cuanto menos sea el tiempo hasta la charla, mayor será la ansiedad). Sin embargo está pregunta se puede volver más compleja.</p>
 <p><em>Ejemplo. Si faltan 10 minutos para que una persona de una charla, qué grado de ansiedad tendrá?</em></p>
 </div>
-<div id="la-esencia-de-las-regresiones-lineales-recae-en-la-posibilidad-de-ajustar-un-modelo-a-nuestros-datos-y-utilizarlo-para-predecir-los-valores-de-la-variable-dependiente-vd-a-partir-de-una-o-más-variables-independientes-vi.-en-la-regresión-el-modelo-que-ajustamos-es-lineal-lo-que-significa-que-resumimos-un-conjunto-de-datos-con-una-línea-recta.-para-hacer-predicciones-precisas-queremos-ajustar-un-modelo-que-describa-mejor-los-datos.-la-regresión-lineal-permite-medir-la-fuerza-de-la-asociación-entre-dos-variables-numéricas.-también-nos-indica-en-qué-dirección-positiva-negativa-ocurre-esta-asociación-y-su-forma-lineal." class="section level5">
-<h5>La esencia de las regresiones lineales recae en la posibilidad de ajustar un modelo a nuestros datos y utilizarlo para predecir los valores de la variable dependiente (VD) a partir de una o más variables independientes (VI). En la regresión el modelo que ajustamos es lineal, lo que significa que resumimos un conjunto de datos con una línea recta. Para hacer predicciones precisas, queremos ajustar un modelo que describa mejor los datos. La regresión lineal permite medir la fuerza de la asociación entre dos variables numéricas. También nos indica en qué dirección (positiva, negativa) ocurre esta asociación y su forma lineal.</h5>
+<div id="section-2" class="section level5">
+<h5></h5>
+<p>La esencia de las regresiones lineales recae en la posibilidad de ajustar un modelo a nuestros datos y utilizarlo para predecir los valores de la variable dependiente (VD) a partir de una o más variables independientes (VI). En la regresión el modelo que ajustamos es lineal, lo que significa que resumimos un conjunto de datos con una línea recta. Para hacer predicciones precisas, queremos ajustar un modelo que describa mejor los datos. La regresión lineal permite medir la fuerza de la asociación entre dos variables numéricas. También nos indica en qué dirección (positiva, negativa) ocurre esta asociación y su forma lineal.</p>
 </div>
-<div id="cualquier-línea-recta-puede-definirse-por-dos-cosas-1-la-pendiente-o-gradiente-de-la-línea-normalmente-denotada-por-b1-y-2-el-punto-en-el-que-la-línea-cruza-el-eje-vertical-del-gráfico-conocido-como-la-intercepción-de-la-línea-b0.-aquí-b1-es-el-gradiente-de-la-línea-recta-ajustada-a-los-datos-y-b0-es-la-intersección-de-esa-línea." class="section level5">
-<h5>Cualquier línea recta puede definirse por dos cosas: (1) la pendiente (o gradiente) de la línea (normalmente denotada por b1); y (2) el punto en el que la línea cruza el eje vertical del gráfico (conocido como la intercepción de la línea, b0). Aquí b1 es el gradiente de la línea recta ajustada a los datos y b0 es la intersección de esa línea.</h5>
-<p><span class="math inline">\(B_0\)</span> representa el valor de Y cuando X = 0 <span class="math inline">\(B_1\)</span> es la pendiente, incremento en Y cuando X aumenta en una unidad.</p>
-<p><em>La formula de regresion simple es</em> <span class="math display">\[ Y_t = B_0 + B_1*X_t + e_t\]</span></p>
-<p>Donde <span class="math inline">\(X_t\)</span> es la variable independiente <span class="math inline">\(Y_t\)</span> es la Variable dependiente <span class="math inline">\(B_0\)</span> representa el valor de Y cuando X = 0 <span class="math inline">\(B_1\)</span> representa el cambio de Y por unidad de incremento de X<br />
-<span class="math inline">\(e_t\)</span> es el error asociado</p>
-<p><em>Formula sencilla</em></p>
-<p><span class="math inline">\(u_y = B_0 + B_1*X\)</span></p>
-<p>#####Donde</p>
-<p><span class="math inline">\(u_y\)</span> es el promedio de Y <span class="math inline">\(B_0\)</span> es el intercepto (valor de <span class="math inline">\(u_y\)</span> cuando <span class="math inline">\(x = 0\)</span>) <span class="math inline">\(B_1\)</span> es la pendiente</p>
+<div id="section-3" class="section level5">
+<h5></h5>
+<p>Cualquier línea recta puede definirse por dos cosas: (1) la pendiente (o gradiente) de la línea (normalmente denotada por b1); y (2) el punto en el que la línea cruza el eje vertical del gráfico (conocido como la intercepción de la línea, b0). Aquí b1 es el gradiente de la línea recta ajustada a los datos y b0 es la intersección de esa línea.</p>
+</div>
+<div id="section-4" class="section level5">
+<h5></h5>
+<p>La formula de regresion simple es <span class="math display">\[ Y_t = B_0 + B_1*X_t + e_t\]</span></p>
+<p>Donde:</p>
+<p><span class="math inline">\(X_t\)</span> es la variable independiente, <span class="math inline">\(Y_t\)</span> es la Variable dependiente, <span class="math inline">\(B_0\)</span> representa el valor de <span class="math inline">\(Y\)</span> cuando <span class="math inline">\(X = 0\)</span>, <span class="math inline">\(B_1\)</span> representa el cambio de <span class="math inline">\(Y\)</span> por unidad de incremento de <span class="math inline">\(X\)</span> y <span class="math inline">\(e_t\)</span> es el error asociado.</p>
+<p>La Formula sencilla de la regresion es: <span class="math inline">\(u_y = B_0 + B_1*X\)</span></p>
+<p>Donde:</p>
+<p><span class="math inline">\(u_y\)</span> es el promedio de <span class="math inline">\(Y\)</span>, <span class="math inline">\(B_0\)</span> es el intercepto (valor de <span class="math inline">\(u_y\)</span> cuando <span class="math inline">\(x = 0\)</span>) y <span class="math inline">\(B_1\)</span> es la pendiente</p>
 <hr />
 </div>
 </div>
-<div id="supuestos" class="section level3">
-<h3>Supuestos</h3>
+<div id="supuestos" class="section level4">
+<h4>Supuestos</h4>
+<p><em>Linealidad</em>. Los valores de <strong>y</strong> dados por <strong>x</strong> toman una función lineal.</p>
+<p><em>Independencia de erroreS</em>. Los valores de un sujeto no afectan al otro, no están autocorrelacionados. Cuando se grafica no tiene que verse ningún patrón</p>
+<p><em>Si hay colinealidad no se puede ejecutar la regresión</em> (VIF) La colinealidad incrementa el valor de la varianza, si se tiene variables muy correlacionadas, los errores crecen y el valor va a crecer, lleva a creer que hay independencia de errores.</p>
+<p><em>Normalidad</em></p>
+<p><em>Igualdad de varianzas (homocedasticidad)</em>. La varianza es parecida para cada valor de <strong>x</strong>. Si no hay homocedasticidad no podría hacer buenas predicciones.</p>
+<p><em>Tipo de variables</em>. <span class="math inline">\(X\)</span> puede ser cualitativa(categórica) o cuantitativa, <span class="math inline">\(y\)</span> debe ser cuantitativa continua, si es discreta(número enteros altos), que tenga valores lejos de cero.</p>
+<ul>
+<li>Lo que se busca no es que en la recta estén todos los puntos, sino que se ajusten de la mejor manera (pasa sobre las medias condicionales). Se debe encontrar una media condicional dado los valores de x</li>
+<li>La media de los errores debe ser 0, se asume q los errores provienen de un mismo modelo generador de errores</li>
+<li>La variabilidad, puede haber errores con más variabilidad y con menos variabilidad (heterosedasticidad), se espera que la variabilidad sea homogenea. Si la varianza de errores es constante significa que la distancia de los errores es constante.</li>
+<li>p es el número de variables y k es el número de coeficientes de regresion, se le agrega uno más por B0</li>
+<li>Homogeneidad de varianza (se afecta el aspecto intervalar y la prueba de hipótesis cuando no hay homogeneidad de varianza). La variabilidad debe ser la misma. Los errores multiplicativos se refiere a que los datos no se acoplan al modelo de regresión lineal. Los minimos cuadrados ponderados se usa al momento que no hay homogeneidad, sin embargo usualmente utilizamos minimo cuadrado ordinales.</li>
+</ul>
 <p><span class="math display">\[
 a^2 + b^2 = c^2
 \]</span></p>
