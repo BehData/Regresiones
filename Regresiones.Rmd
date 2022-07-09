@@ -1,0 +1,63 @@
+---
+title: "Regresiones"
+author: "Mayo & García"
+date: "9/7/2022"
+output: html_document
+---
+
+## Regresiones en el ámbito de salud
+### Regresión lineal simple y regresión logística
+
+#### La regresión lineal permite medir la fuerza de la asociación entre dos variables numéricas. También nos indica en qué dirección (positiva, negativa) ocurre esta asociación y su forma lineal.
+
+#### Hablar de regresiones es regresar hacia las posibles causas asociadas al desenlace de interés. Con un modelo de regresión lineal podemos determinar como el valor promedio de una variable dependiente continua (y) varía con respecto al valor de un simple predictor.
+
+
+### Formula de la regresion simple
+
+
+$$Y_t=B_0 + B_1*X_t + e_t$$
+------------------------------------------------------------------------
+
+$$X_t$$Variable independiente 
+$$Y_t$$Variable dependiente 
+$$B_0$$Representa el valor de Y cuando X = 0 
+$$B_1$$Representa el cambio de Y por unidad de incremento de X  
+$$e_t$$Error asociado  
+
+------------------------------------------------------------------------
+#### Se establece una asociación entre Y (variable dependiente) y X (variable independiente)
+
+$$u_y = B_0 + B_1*X$$
+$$u_y$$, promedio de Y
+$$B_0$$, Intercepto(valor de $$u_y$$ cuando x=0)
+$$B_1$$, Pendiente (Incremento de )
+
+------------------------------------------------------------------------
+
+### Supuestos
+
+$$
+a^2 + b^2 = c^2
+$$
+
+------------------------------------------------------------------------
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r cars}
+summary(cars)
+```
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
