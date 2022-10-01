@@ -34,13 +34,11 @@ library(readr)
 ```{r}
 # Load the database
 library(readxl)
-data_depression <- read_excel("base_depresion_en_medicos_-_corregida.xlsx")
-View(data_depression)
-summary(data_depression)
+data <- read_excel("saludmental_v2.xlsx")
+View(data)
+names(data)
+summary(data)
 
-library(readxl)
-data_rendimiento <- read_excel("base_rendimiento_academico.xlsx")
-View(data_rendimiento)
 ```
 
 ## Step 3: Explore outcome variable (must be numeric)
@@ -48,8 +46,8 @@ View(data_rendimiento)
 We checked if the independient variable `nota` (VI) is numeric
 
 ```{r}
-glimpse(data_rendimiento$nota) #Numeric
-glimpse(data_rendimiento$edad)
+glimpse(data$TOTAL_PHQ9) #Numeric
+glimpse(data$TOTAL_GAD)
 ```
 
 ## Step 4: Make sure data assumptions
@@ -57,7 +55,7 @@ glimpse(data_rendimiento$edad)
 #### A. Linearity
 
 ```{r}
-plot(nota ~ edad, data = data_rendimiento)
+plot(TOTAL_GAD ~ TOTAL_PHQ9, data = data)
 ```
 
 #### B. Independence of observations
@@ -65,6 +63,9 @@ plot(nota ~ edad, data = data_rendimiento)
 Teoricamente se entiende que las variables son independientes
 
 ```{r}
+library(car)
+cor(data_rendimiento$edad, data_rendimiento$promsecu)
+vif(m_rendimiento_lm)
 
 ```
 
@@ -72,23 +73,23 @@ Teoricamente se entiende que las variables son independientes
 
 ```{r}
 
-hist(data_rendimiento$edad)
+hist(data$TOTAL_GAD)
 # Se puede evaluar la normalidad por  QQplot, Kurtosis
 ```
 
 ## Step 3: Perform the linear regression analysis
 
 ```{r}
-rendimiento_lm <- lm(nota ~ edad, data = data_rendimiento)
+resultado <- lm(TOTAL_PHQ9 ~ TOTAL_GAD, data = data)
 
-summary(rendimiento_lm)
+summary(resultado)
 ```
 
 ## Step 4: Check the homocedasticity
 
 ```{r}
 par(mfrow=c(2,2))
-plot(rendimiento_lm)
+plot(resultado)
 par(mfrow=c(1,1))
 ```
 
@@ -103,7 +104,7 @@ par(mfrow=c(1,1))
 ```{r}
 # Load the database
 library(readxl)
-data_depression <- read_excel("base_depresion_en_medicos_-_corregida.xlsx")
+data <- read_excel("base_depresion_en_medicos_-_corregida.xlsx")
 View(data_depression)
 summary(data_depression)
 
