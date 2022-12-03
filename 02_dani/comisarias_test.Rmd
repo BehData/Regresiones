@@ -1,0 +1,128 @@
+---
+title: "1st practice"
+author: "Daniel Calenzani"
+date: "2022/11/29"
+output:
+  html_document: 
+    code_download: yes
+  pdf_document: default
+subtitle: "Markdown - RMarkdown"
+editor_options: 
+  chunk_output_type: console
+---
+
+## General considerations:
+
+Do the number of vehicles involved in a car crash have an impact in the number of deathly victims? We tested the national census of peruvian police precincts (INEI, 2017) to find out. However this analysis is, in essence, an exercise in application of the regression approach applied to publicly accessible databases.
+
+
+We've divided the analysis in 6 steps, using the guide proposed by Rebecca Bevans in [Linear Regression in R - A Step-by-Step Guide & Examples](https://www.scribbr.com/statistics/linear-regression-in-r/)
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(ggpubr)
+library(tidyverse)
+library(readr)
+library(haven)
+```
+
+## Linear Regression with numeric VI
+
+### Step 1: Load the data into R
+
+```{r}
+# Load the database
+
+data_at <- read_sav("db_censo_comisarias.sav")
+summary(data_at)
+
+```
+
+### Step 2: Explore outcome variable (must be numeric)
+
+We checked if the independent variable `automoviles involucrados` (VI - AT_106_1) is numeric. A general look at the database shows that this number represents only the value for cars of sedan or hatchback models, while other automobiles such as trucks, station wagons, buses or vans are excluded from this count. 
+
+It can be said that the  variable could be considered as a categoric variable. While it has a numeric linear value, the max output is limited to 5. Added to this the output for any value of vehicles belongs to $N$ , as you can't have half a vehicle involved in a car accident, which furthers the argument for a categorical analysis. Linear Regression is possible with one independent categoric variable, but has special considerations in the interpretation of its data. 
+
+For practice purposes we'll consider it as a numeric variable, as the analysis with categoric variables omits many of the interpretations in a numeric variable.
+
+```{r}
+heridos <- data_at$AT108_2
+vehiculos <- data_at$AT106_1_CANT
+
+glimpse(heridos) #Numeric
+glimpse(vehiculos) #Numeric
+```
+
+## Step 3: Make sure data assumptions
+
+#### A. Linearity
+
+When checking for linearity we can see that the points are not scattered in a linear distribution, they form columns for each whole value. They miss the mark in forming some sort of bell curve and most of the cases had only 1 automobile involved.
+
+```{r}
+plot(heridos ~ vehiculos, data = data_at)
+```
+
+#### B. Independence of observations
+
+Theoretically, we expect each variable to be independent
+
+#### C. Normality
+
+When checking for normality, the histogram is not bell shaped, which states a tendency of values in the lower numbers of the independent variable. Most of the cases had 1 or 2 automovile vehicles involved.
+
+```{r}
+hist(vehiculos)
+# Se puede evaluar la normalidad por  QQplot, Kurtosis
+```
+
+## Step 3: Perform the linear regression analysis
+
+In the analysis we see that the p value is favorable to us, as it is low enough to make this a good model. It appears to be a significant positive relationship between vehicles and people hurt in car accidents, with a 0,44 increase in people hurt for every unit of vehicles involved. 
+
+However, if we treat the variables as categorical ones, we can omit the linearity analysis and insist on this relation without trouble.
+
+```{r}
+data_at_lm <- lm(heridos ~ vehiculos, data = data_at)
+
+summary(data_at_lm)
+```
+
+## Step 4: Check the homocedasticity
+Residuals show bias, as they are distributed between the two first values. If we consider the "vehicles" variable as categorical then we can also omit this test
+
+```{r}
+par(mfrow=c(2,2))
+plot(data_at_lm)
+par(mfrow=c(1,1))
+```
+
+## Step 5: Perform a graph to visualize the results
+With the previous steps done we can graph the linear model an see that the number of vehicles involved has (eventhough small) a relation to the number of peopler hurt in the accident
+
+```{r}
+graph <- ggplot(data_at, aes(x=vehiculos, y=heridos)) + geom_point()
+graph <- graph + geom_smooth(method='lm', col='blue')
+graph <- graph + stat_regline_equation(label.x = 3, label.y = 7)
+graph
+```
+
+```{r}
+relation <- lm(vehiculos~heridos)
+# give the chart a name
+png(file = "linearregression.png")
+# Plot
+plot(vehiculos,heridos, col = "blue", main = "Regresión de vehículos y heridos en choques de autos",
+abline(lm(vehiculos~heridos)), cex = 1.3, pch = 16, xlab = "vehiculos", ylab = "heridos")
+# Save
+dev.off()
+```
+## Step 6: Report and interpret your results
+
+We can interpret of this analysis that the number automovile vehicles invovled in car accidents have a relation with the number of wounded people. In our next analysis we will  sum the number of different types of vehicles involved, so we can get a complete picture of the relation between vehicles involved and total number of wounde people. 
+
+We will also try to create an html site where you can select the type of vehicle you wish to add in the analysis

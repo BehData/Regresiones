@@ -1,0 +1,136 @@
+---
+title: "2nd practice"
+author: "Daniel Calenzani"
+date: "2022/11/29"
+output:
+  html_document: 
+    code_download: yes
+  pdf_document: default
+subtitle: "Markdown - RMarkdown"
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction
+
+In the previous excercise we did a simple regression model with the data of the national census of police precints. However, by the end of the analysis we left with some doubts which can be tackled by implementing some code into our R syntax.
+
+In this following lines our objective will be to sum the total of vehicles involved in the accident, and also try to "choose" between the available car models.
+
+First we always start with library loading. I strongly recommend to take some minutes to delve into tidyverse, its currently one of the most popular packages in R and it includes many of the libraries used in data science. 
+
+Then, we should import the data by using read_sav. This time we don't call for a summary as we've already seen the summary in the previous report.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(ggpubr)
+library(tidyverse)
+library(readr)
+library(haven)
+
+#Load the database
+
+data_at <- read_sav("db_censo_comisarias.sav")
+```
+### Modifying the table to add a sum column
+
+This is a simple task that might appear lots of times in our careers. In Excel you can apply a 'sum' function on an empty cell and select your own range, in R we need the same variables: 1) a new column, 2)a sum function, 3) a sum range
+
+We'll start by the end
+
+#### Define the Sum range
+
+In this excercise we want to sum the vehicles involved in the accident. As with any table, we must check the columns which contain this data. As a personal recommendation, always preload your data to check if the naming conventions applied make the contained data self-evident. In this case we will find that, if imported to R, the column name of the sav. file does have the information about the data. 
+
+In the last exercise we used the columns:  
+
+```{r}
+heridos <- data_at$AT108_2
+vehiculos <- data_at$AT106_1_CANT
+```
+
+As we can see the naming conventions in the name of the columns doesn't imply directly what does the column contain. If the data does not express what it contains even after looking at the loaded data in Rstudio then we should look if our source provides with some sort of dictionary for their naming conventions.
+
+For the peruvian case, the National Institute of Estadistic and Information ([INEI](https://www.inei.gob.pe/nosotros/)) all of their data has a dictionary provided in the same 'sistema de consulta' where you'll find any of their surveys. 
+
+In combination with the colnames function R we'll find out which are the columns we need to sum up.
+
+```{r}
+columns <- colnames(data_at)
+columns
+```
+
+We find that the columns of our interest are the ones from 106_1_CANT up until 106_18_CANT, however, in between each we have a column without the suffix CANT, which will complicate things a little bit.
+
+Our solution is inspired (pirated) from our holy holyness [Stackoverflow](https://stackoverflow.com/questions/40486987/remove-subset-or-select-columns-based-on-a-part-of-the-header-name), I'm still exploring solutions so maybe there is a better way to do this, without creating a new data frame or modyfying the original file. My gut tells me that maybe this is the best solution, as modyfing a file could be potentially dangerous specially with large datasets
+
+```{r}
+#Example %>% select(contains("_"))
+data_at$cantcol <- data_at %>% select(contains("CANT"))
+```
+
+By aplying dlypr we can extract only the columns which name have 'CANT' on them and putting them in an empty vector called 'cantcol'.
+
+```{r}
+summary(data_at$cantcol)
+```
+
+Then we can sum the columns into a new column in our dataframe
+```{r}
+data_at$total_vehicles <- rowSums(data_at$cantcol[,], na.rm = TRUE)
+summary(data_at$total_vehicles)
+```
+
+#### Remaking the linear regression analysis
+
+After this process we can finally test our LM model with the whole sum of vehicles involved. So we will repeat the process from our last exercise
+
+```{r}
+heridos <- data_at$AT108_2
+vehiculos <- data_at$total_vehicles
+#We'll check linearity independence and normality
+plot(heridos ~ vehiculos, data = data_at)
+hist(vehiculos)
+#linear regression
+data_at_lm <- lm(heridos ~ vehiculos, data = data_at)
+summary(data_at_lm)
+```
+## Step 3: Perform the linear regression analysis
+
+```{r}
+data_at_lm <- lm(heridos ~ vehiculos, data = data_at)
+
+summary(data_at_lm)
+```
+
+## Step 4: Check the homocedasticity
+
+```{r}
+par(mfrow=c(2,2))
+plot(data_at_lm)
+par(mfrow=c(1,1))
+```
+
+## Step 5: Perform a graph to visualize the results
+
+```{r}
+graph <- ggplot(data_at, aes(x=vehiculos, y=heridos)) + geom_point()
+graph <- graph + geom_smooth(method='lm', col='blue')
+graph <- graph + stat_regline_equation(label.x = 3, label.y = 7)
+graph
+```
+
+```{r}
+relation <- lm(vehiculos~heridos)
+# give the chart a name
+png(file = "linearregression.png")
+# Plot
+plot(vehiculos,heridos, col = "blue", main = "Regresión de vehículos y heridos en choques de autos",
+abline(lm(vehiculos~heridos)), cex = 1.3, pch = 16, xlab = "vehiculos", ylab = "heridos")
+# Save
+dev.off()
+```
+## Step 6: Report and interpret your results
+
