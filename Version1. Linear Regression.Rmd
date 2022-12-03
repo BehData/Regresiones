@@ -34,13 +34,11 @@ library(readr)
 ```{r}
 # Load the database
 library(readxl)
-data_depression <- read_excel("base_depresion_en_medicos_-_corregida.xlsx")
-View(data_depression)
-summary(data_depression)
+data <- read_excel("saludmental.xlsx")
+View(data)
+names(data)
+summary(data)
 
-library(readxl)
-data_rendimiento <- read_excel("base_rendimiento_academico.xlsx")
-View(data_rendimiento)
 ```
 
 ## Step 3: Explore outcome variable (must be numeric)
@@ -48,16 +46,18 @@ View(data_rendimiento)
 We checked if the independient variable `nota` (VI) is numeric
 
 ```{r}
-glimpse(data_rendimiento$nota) #Numeric
-glimpse(data_rendimiento$edad)
+glimpse(data$TOTAL_PHQ9) #Numeric
+glimpse(data$TOTAL_GAD)
 ```
 
 ## Step 4: Make sure data assumptions
 
 #### A. Linearity
 
+Para este primer analisis, el *colesterol* será la variable dependiente, mientras que la variable *horas sentado* será la variable independiente.   
+
 ```{r}
-plot(nota ~ edad, data = data_rendimiento)
+plot(TOTAL_PHQ9 ~ TOTAL_GAD, data = data)
 ```
 
 #### B. Independence of observations
@@ -65,36 +65,45 @@ plot(nota ~ edad, data = data_rendimiento)
 Teoricamente se entiende que las variables son independientes
 
 ```{r}
+library(car)
+cor(data$TOTAL_PHQ9, data$TOTAL_GAD)
+resultado <- lm(TOTAL_PHQ9 ~., data = data)
+summary(resultado)
+vif(resultado)
 
 ```
 
 #### C. Normality
 
 ```{r}
-
-hist(data_rendimiento$edad)
+hist(data$colesterol)
+hist(data$horas_sentado)
 # Se puede evaluar la normalidad por  QQplot, Kurtosis
 ```
 
 ## Step 3: Perform the linear regression analysis
 
 ```{r}
-rendimiento_lm <- lm(nota ~ edad, data = data_rendimiento)
+resultado <- lm(TOTAL_PHQ9 ~ TOTAL_GAD, data = data)
 
-summary(rendimiento_lm)
+summary(resultado)
 ```
 
 ## Step 4: Check the homocedasticity
 
 ```{r}
 par(mfrow=c(2,2))
-plot(rendimiento_lm)
+plot(resultado)
 par(mfrow=c(1,1))
 ```
 
 ## Step 5: Perform a graph to visualize the results
 
 ## Step 6: Report and interpret your results
+
+
+
+
 
 # Multiple Regression with numeric VI
 
@@ -103,9 +112,9 @@ par(mfrow=c(1,1))
 ```{r}
 # Load the database
 library(readxl)
-data_depression <- read_excel("base_depresion_en_medicos_-_corregida.xlsx")
-View(data_depression)
-summary(data_depression)
+data <- read_excel("saludmental.xlsx")
+View(data)
+summary(data)
 
 library(readxl)
 data_rendimiento <- read_excel("base_rendimiento_academico.xlsx")
@@ -117,10 +126,12 @@ View(data_rendimiento)
 We checked if the independient variable `nota` (VI) is numeric
 
 ```{r}
-glimpse(data_rendimiento)
-glimpse(data_rendimiento$nota) #Numeric
-glimpse(data_rendimiento$edad) # Numeric
-glimpse(data_rendimiento$promsecu) #Numeric
+glimpse(data)
+glimpse(data$Edad) #Numeric
+glimpse(data$TOTAL_PHQ9) # Numeric
+glimpse(data$TOTAL_GAD) # Numeric
+glimpse(data$colesterol) #Numeric
+glimpse(data$horas_sentado) #Numeric
 ```
 
 ## Step 4: Make sure data assumptions
@@ -128,8 +139,10 @@ glimpse(data_rendimiento$promsecu) #Numeric
 #### A. Linearity
 
 ```{r}
-plot(nota ~ edad, data = data_rendimiento)
-plot(nota ~ promsecu, data = data_rendimiento)
+plot(TOTAL_PHQ9 ~ Edad, data = data)
+plot(TOTAL_PHQ9 ~ TOTAL_GAD, data = data)
+plot(TOTAL_PHQ9 ~ colesterol, data = data)
+plot(TOTAL_PHQ9 ~ horas_sentado, data = data)
 ```
 
 #### B. Independence of observations
