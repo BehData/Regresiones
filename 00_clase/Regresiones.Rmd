@@ -1,8 +1,8 @@
 ---
 
-title: "Accidentes de Tránsito"
-author: "Calenzani y Mayo"
-date: "2022/10/29"
+title: "REGRESIONES"
+author: "Mayo y García"
+date: "2022/08/06"
 subtitle: Markdown - RMarkdown
 output:
   html_document:
@@ -36,7 +36,7 @@ Siendo β0 la ordenada en el origen, β1 la pendiente y ϵ el error aleatorio. E
 ##### ***Recta de regresion*** 
 
 <center>
-![](recta-regresion.jpg)
+![](imagenes/recta-regresion.jpg)
 </center>
 
 #####
@@ -49,7 +49,7 @@ Donde: $$ a = β0 $$
 En la gran mayoría de casos, los valores β0 y β1 poblacionales son desconocidos, por lo que, a partir de una muestra, se obtienen sus estimaciones β^0 y β^1. Estas estimaciones se conocen como *coeficientes de regresión o least square coefficient estimates*, ya que toman aquellos valores que minimizan la suma de cuadrados residuales, dando lugar a la recta que pasa más cerca de todos los puntos. (Existen alternativas al método de mínimos cuadrados para obtener las estimaciones de los coeficientes).
 
 <center>
-![](estimar-coeficientes.png)
+![](imagenes/estimar-coeficientes.png)
 </center>
 
 #####
@@ -80,7 +80,7 @@ Para estimar cómo de precisos son nuestros estimadores β0^ y β1^ y como, de m
 #####
 
 <center>
-![](Error-standar.png)
+![](imagenes/Error-standar.png)
 </center>
 
 #####
@@ -88,7 +88,7 @@ La varianza del error ϵ es en general desconocida, pero se puede estimar a part
 
 
 <center>
-![](Error-residual.png)
+![](imagenes/Error-residual.png)
 </center>
 
 #####
@@ -102,7 +102,7 @@ A partir del cálculo del error estándar, podemos obtener los intervalos de con
 
 
 <center>
-![](Intervalo-confianza.png)
+![](imagenes/Intervalo-confianza.png)
 </center>
 
 #### ***Test de Hipótesis***
@@ -118,7 +118,7 @@ Para comprobar la hipótesis nula, necesitamos determinar si β1^ se aleja lo su
 
 
 <center>
-![](Hipotesis.png)
+![](imagenes/Hipotesis.png)
 
 </center>
 
@@ -144,7 +144,7 @@ El coeficiente de determinación R2 constituye una alternativa al RSE. Toma un v
 
 
 <center>
-![](R-cuadrado.png)
+![](imagenes/R-cuadrado.png)
 </center>
 
 #####
@@ -152,7 +152,7 @@ Un valor bajo podría indicar que el modelo lineal no es adecuado o podría debe
 
 
 <center>
-![](Correlacion.png)
+![](imagenes/Correlacion.png)
 </center>
 
 #####
